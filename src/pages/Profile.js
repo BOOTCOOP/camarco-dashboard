@@ -131,10 +131,10 @@ export default function Profile() {
                 USA
               </Descriptions.Item>
               <Descriptions.Item label="Social" span={3}>
-                <a href="#pablo" className="mx-5 px-5">
+                <a href="#" className="mx-5 px-5">
                   {<Iconify icon="akar-icons:twitter-fill" />}
                 </a>
-                <a href="#pablo" className="mx-5 px-5">
+                <a href="#" className="mx-5 px-5">
                   {
                     <Iconify
                       icon="akar-icons:facebook-fill"
@@ -142,7 +142,7 @@ export default function Profile() {
                     />
                   }
                 </a>
-                <a href="#pablo" className="mx-5 px-5">
+                <a href="#" className="mx-5 px-5">
                   {
                     <Iconify
                       icon="akar-icons:instagram-fill"

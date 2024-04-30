@@ -91,7 +91,7 @@ export default class SignUp extends Component {
                 <Form.Item name="remember" valuePropName="checked">
                   <Checkbox>
                     I agree the{" "}
-                    <a href="#pablo" className="font-bold text-dark">
+                    <a href="#" className="font-bold text-dark">
                       Terms & Conditions
                     </a>
                   </Checkbox>

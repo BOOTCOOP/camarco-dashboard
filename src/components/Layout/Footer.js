@@ -9,7 +9,7 @@ const AntdFooter = () => {
       <Menu mode="horizontal" items={footerMenu} />
       <Menu mode="horizontal" className="menu-nav-social" items={socialMenu} />
       <p className="copyright">
-        Copyright © 2022 antd by <a href="#pablo">Kashif Ali</a>
+        Copyright © 2024 by<a target="blank" href="https://bootcoop.io/">Boot Coop</a>
       </p>
     </Footer>
   );

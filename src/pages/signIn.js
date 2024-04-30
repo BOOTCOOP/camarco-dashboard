@@ -35,7 +35,7 @@ const SignIn = ({ setAuthenticated }) => {
       <div className="layout-default layout-signin">
       {/* <Header btn="primary" authenticated={false} /> */}
         <Content className="signin">
-          <Row gutter={[24, 0]} justify="space-around">
+          <Row gutter={[24, 0]} justify="space-evenly">
             <Col
               xs={{ span: 24, offset: 0 }}
               lg={{ span: 6, offset: 2 }}
@@ -62,6 +62,7 @@ const SignIn = ({ setAuthenticated }) => {
                   ]}
                 >
                   <Input
+                    className="input-camarco"
                     placeholder="Email"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -79,15 +80,17 @@ const SignIn = ({ setAuthenticated }) => {
                   ]}
                 >
                   <Input.Password
+                    className="input-camarco"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </Form.Item>
-
-                <Button type="primary" htmlType="submit">
-                  SIGN IN
-                </Button>
+                <div className="align-button">
+                  <Button type="primary" className="btn-camarco" danger htmlType="submit">
+                    SIGN IN
+                  </Button>
+                </div>  
                 {error && <p>{error}</p>}
               </Form>
             </Col>

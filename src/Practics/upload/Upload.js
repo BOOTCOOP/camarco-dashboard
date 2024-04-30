@@ -63,7 +63,7 @@ export default function AntUpload() {
         beforeUpload={beforeUpload}
         onChange={handleChange}
       >
-        kashif
+        facu
       </Upload>
     </div>
   );

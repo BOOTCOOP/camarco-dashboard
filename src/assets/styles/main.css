@@ -2113,8 +2113,25 @@ body {
     font-size: 48px;
     font-weight: 700;
     color: #141414;
+    text-align: center;
   }
-  
+  .btn-camarco{
+    border-color: #76232f !important;
+    background-color: #76232f !important;
+  }
+  .btn-camarco:hover{
+    border-color: #76232f !important;
+    background-color: white !important;
+    color: #76232f !important;
+  }
+  .align-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .input-camarco:hover{
+    border-color: #76232f;
+  }
   .signin h5 {
     font-weight: 400;
     color: #8c8c8c;

@@ -126,7 +126,7 @@ export default function AntdHeader({ name }) {
               arrow
               overlayStyle={{ width: "20%" }}
             >
-              <a href="#pablo" className="ant-dropdown-link">
+              <a href="#" className="ant-dropdown-link">
                 {bell}
               </a>
             </Dropdown>
@@ -205,8 +205,8 @@ export default function AntdHeader({ name }) {
                   </ButtonContainer>
                 </div>
                 <div className="viewstar">
-                  <a href="#pablo">{<Iconify icon="akar-icons:star" />} Star</a>
-                  <a href="#pablo">190</a>
+                  <a href="#">{<Iconify icon="akar-icons:star" />} Star</a>
+                  <a href="#">190</a>
                 </div>
                 <div className="ant-thank">
                   <Title level={5}>Thank you for sharing!</Title>

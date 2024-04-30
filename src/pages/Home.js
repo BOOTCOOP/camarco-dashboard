@@ -190,7 +190,7 @@ export default function Home() {
                     </Paragraph>
                   </div>
                   <div className="card-footer">
-                    <a href="#pablo" className="icon-move-right">
+                    <a href="#" className="icon-move-right">
                       Read more{" "}
                       {
                         <Iconify
@@ -220,7 +220,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="card-footer">
-                <a href="#pablo" className="icon-move-right">
+                <a href="#" className="icon-move-right">
                   Read more{<Iconify icon="eva:chevron-right-fill" />}
                 </a>
               </div>

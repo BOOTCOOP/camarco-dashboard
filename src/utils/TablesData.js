@@ -123,7 +123,7 @@ const tableData = data.map(({ name, email, img, title, org, bool }, index) => {
             .add(9 + index, "days")
             .calendar()}
         </span>
-        <a href="#pablo">Edit</a>
+        <a href="#">Edit</a>
       </div>
     ),
   };
