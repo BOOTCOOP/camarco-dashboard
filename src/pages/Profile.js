@@ -142,7 +142,7 @@ export default function Profile() {
                     />
                   }
                 </a>
-                <a href="#" className="mx-5 px-5">
+                <a href="https://www.instagram.com/camarcoarg" className="mx-5 px-5">
                   {
                     <Iconify
                       icon="akar-icons:instagram-fill"

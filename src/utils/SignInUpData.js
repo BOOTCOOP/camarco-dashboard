@@ -11,27 +11,34 @@ export const footerMenu = [
 export const socialMenu = [
   {
     key: '1',
-    icon: <Iconify icon="eva:globe-fill" width="18px" height="18px" />,
+    icon: <Iconify icon="eva:video-fill" width="18px" height="18px" />,
+    url: 'https://www.youtube.com/channel/UC3Q4kHsOr_Mr7R-eefvAe8A', // Ejemplo de URL para tu sitio
   },
   {
     key: '2',
     icon: <Iconify icon="eva:twitter-fill" width="18px" height="18px" />,
+    url: 'https://x.com/CamarcoArg', // Ejemplo de URL para tu sitio
   },
   {
     key: '3',
     icon: (
       <Iconify icon="akar-icons:instagram-fill" width="18px" height="18px" />
     ),
+    url: 'https://www.instagram.com/camarcoarg', // Ejemplo de URL para tu sitio
   },
   {
     key: '4',
     icon: (
-      <Iconify icon="akar-icons:pinterest-fill" width="18px" height="18px" />
+      <Iconify icon="akar-icons:facebook-fill" width="18px" height="18px" />
     ),
+    url: 'https://www.facebook.com/CamarcoArg', // Ejemplo de URL para tu sitio
   },
   {
     key: '5',
-    icon: <Iconify icon="akar-icons:github-fill" width="18px" height="18px" />,
+    icon: (
+      <Iconify icon="akar-icons:linkedin-fill" width="18px" height="18px" />
+    ),
+    url: 'http://linkedin.com/company/cámara-argentina-de-la-construcción', // Ejemplo de URL para tu sitio
   },
 ]
 export const signInSvg = (
