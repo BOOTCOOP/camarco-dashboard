@@ -1,6 +1,6 @@
 ## Camarco Dashboard
 
-A modern and stylish dashboard built using [Ant Design](https://ant.design/) and [React](https://reactjs.org/). 
+A modern and stylish dashboard built using [Ant Design](https://ant.design/) and [React](https://reactjs.org/).
 The dashboard is designed to give an overview of various stats, and it provides a clean and intuitive interface for users to interact with.
 
 ## Table of Contents
@@ -56,7 +56,7 @@ The following technologies have been used to build this project
 2.  Change the directory to the cloned repository by using the following command
 
     ```sh
-    cd antd-dashbaord
+    cd camarco-dashbaord
     ```
 
 3.  Install the required dependencies by using the following command
@@ -70,6 +70,7 @@ The following technologies have been used to build this project
     ```sh
     npm start
     ```
+
 ## <a id="Author">Author</a><br>
 
 - **Author Name** - [Cristian Facundo Varela]()
