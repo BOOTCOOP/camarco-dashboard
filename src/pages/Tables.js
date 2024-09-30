@@ -11,6 +11,7 @@ import {
 } from 'antd'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom' // Para redirigir
 
 export default function Tables() {
   const [userData, setUserData] = useState([])
@@ -23,6 +24,9 @@ export default function Tables() {
     total: 0,
     showSizeChanger: false,
   })
+  const [selectedUserId, setSelectedUserId] = useState(null) // Estado para guardar el usesysid
+  const [initialValues, setInitialValues] = useState({}) // Almacenar valores originales
+  const navigate = useNavigate() // Para redirigir después de la edición
 
   useEffect(() => {
     if (userPagination.total === 0) {
@@ -60,9 +64,41 @@ export default function Tables() {
     }
   }
 
-  const handleEdit = (record) => {
-    form.setFieldsValue(record)
-    setVisible(true)
+  const handleEdit = async (record) => {
+    try {
+      const token = process.env.REACT_APP_TOKEN
+      const authorizationHeader = `Basic ${token}`
+
+      // Solicitar los detalles completos del usuario por su ID
+      const response = await axios.get(
+        `https://api.abm.camarco.org.ar/api/authentication/user/${record.usesysid}`,
+        {
+          headers: {
+            Authorization: authorizationHeader,
+          },
+        }
+      )
+
+      const userData = response.data.data
+
+      // Guardamos el usesysid en el estado y los valores originales en "initialValues"
+      setSelectedUserId(userData.usesysid)
+      const initialFormValues = {
+        surname: userData.surname,
+        name: userData.name,
+        wrapper: userData.wrapper,
+        cuil: userData.data_extension?.cuil || '',
+        email: userData.data_extension?.email || '',
+      }
+      setInitialValues(initialFormValues) // Guardar los valores originales
+
+      // Rellenar el formulario con los datos obtenidos
+      form.setFieldsValue(initialFormValues)
+
+      setVisible(true) // Abrir el modal de edición
+    } catch (error) {
+      console.error('Error fetching user details:', error)
+    }
   }
 
   const handleDelete = (record) => {
@@ -71,11 +107,59 @@ export default function Tables() {
   }
 
   const handleOk = () => {
-    form.validateFields().then((values) => {
-      // Implementa lógica para editar un usuario con los valores de `values`
-      console.log('Valores editados:', values)
-      setVisible(false)
-      message.success(`Usuario editado correctamente.`)
+    form.validateFields().then(async (values) => {
+      try {
+        const token = process.env.REACT_APP_TOKEN
+        const authorizationHeader = `Basic ${token}`
+        const userId = selectedUserId // ID del usuario que guardamos al hacer clic en editar
+
+        // Revisar qué campos fueron modificados comparando con los valores iniciales
+        const fieldsToUpdate = {}
+
+        if (values.email !== initialValues.email)
+          fieldsToUpdate.email = values.email
+        if (values.cuil !== initialValues.cuil)
+          fieldsToUpdate.cuil = values.cuil
+        if (values.name !== initialValues.name)
+          fieldsToUpdate.name = values.name
+
+        // Si no hay campos modificados, no hacer ninguna llamada PATCH
+        if (Object.keys(fieldsToUpdate).length === 0) {
+          message.warning('No hay cambios para guardar.')
+          return
+        }
+
+        // Iterar sobre los campos modificados y hacer una solicitud PATCH para cada uno
+        for (const [field, value] of Object.entries(fieldsToUpdate)) {
+          // Enviar el valor directamente como payload en formato de "application/x-www-form-urlencoded"
+          const formData = new URLSearchParams()
+          formData.append(field, value)
+
+          const response = await axios.patch(
+            `https://api.abm.camarco.org.ar/api/authentication/user/${userId}/${field}`,
+            formData, // Enviar los datos como si fuera un formulario
+            {
+              headers: {
+                Authorization: authorizationHeader,
+                'Content-Type': 'application/x-www-form-urlencoded', // Formato correcto para enviar datos planos
+              },
+            }
+          )
+
+          if (response.status !== 200) {
+            message.error(`Error al editar el campo ${field}.`)
+            return
+          }
+        }
+
+        message.success('Usuario editado correctamente.')
+        setVisible(false) // Cerrar el modal después de la edición exitosa
+        fetchData() // Refrescar la lista de usuarios
+        navigate('/tables') // Redirigir a la página /tables después de editar
+      } catch (error) {
+        console.error('Error actualizando los datos del usuario:', error)
+        message.error('Error al actualizar los datos del usuario.')
+      }
     })
   }
 
@@ -167,12 +251,6 @@ export default function Tables() {
               bordered={false}
               className="criclebox tablespace mb-24"
               title="User Table"
-              // extra={
-              //   <Radio.Group>
-              //     <Radio.Button>All</Radio.Button>
-              //     <Radio.Button>Online</Radio.Button>
-              //   </Radio.Group>
-              // }
             >
               <div className="table-responsive">
                 <div
