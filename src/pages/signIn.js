@@ -25,7 +25,6 @@ const SignIn = ({ setAuthenticated }) => {
         )
       }
       const keyText = await response.text()
-      console.log('Clave pública cargada:', keyText) // Debug
       // Convertir directamente desde PEM a PublicKey
       const publicKey = forge.pki.publicKeyFromPem(keyText)
       return publicKey
@@ -49,7 +48,6 @@ const SignIn = ({ setAuthenticated }) => {
 
   const handleSignIn = async () => {
     try {
-      console.log('Iniciando sesión...') // Debug
       const publicKey = `-----BEGIN PUBLIC KEY-----
     MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxlfy+juJwTDtw8XolfSK
     QB+JaKTgZMl+MjWo+m9n8Kt64ygqtfGvDda1UvT3t9e2ZpOvlsmfSIN0SUMhsq+T
@@ -66,15 +64,12 @@ const SignIn = ({ setAuthenticated }) => {
 
       // Concatenar username y password
       const credentials = `${username}:${password}`
-      console.log('Credenciales concatenadas:', credentials) // Debug
 
       // Cifrar las credenciales con la clave pública
       const encryptedCredentials = encrypt.encrypt(credentials)
-      console.log('Credenciales cifradas:', encryptedCredentials) // Debug
 
       // Convertir a base64 para enviar en el header
       const encryptedBase64 = `Basic ${encryptedCredentials}`
-      console.log('Credenciales cifradas en base64:', encryptedBase64) // Debug
 
       // Enviar la solicitud GET al backend
       const response = await fetch(
@@ -90,13 +85,11 @@ const SignIn = ({ setAuthenticated }) => {
 
       if (response.ok) {
         const data = await response.json()
-        console.log('Respuesta del servidor:', data) // Debug
         // Guardar el token recibido en localStorage
         localStorage.setItem('token', encryptedBase64)
         setAuthenticated(true)
         navigate('/tables')
       } else {
-        console.log('Respuesta del servidor no OK:', await response.text()) // Debug
         setError('Credenciales incorrectas')
       }
     } catch (err) {
