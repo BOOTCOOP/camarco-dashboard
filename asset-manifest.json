@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/camarco-dashboard/static/css/main.f63d517e.css",
-    "main.js": "/camarco-dashboard/static/js/main.bd5287ec.js",
+    "main.js": "/camarco-dashboard/static/js/main.d780f160.js",
     "static/media/home-decor-3.jpeg": "/camarco-dashboard/static/media/home-decor-3.74d13fcbd3c631fc7908.jpeg",
     "static/media/home-decor-2.jpeg": "/camarco-dashboard/static/media/home-decor-2.b4e5397c9846645ba275.jpeg",
     "static/media/home-decor-1.jpeg": "/camarco-dashboard/static/media/home-decor-1.05e218fd495ccc65c99d.jpeg",
@@ -24,8 +24,8 @@
     "static/media/paypal-logo-2.png": "/camarco-dashboard/static/media/paypal-logo-2.e414836fafdf6084279e.png",
     "static/media/face-5.jpeg": "/camarco-dashboard/static/media/face-5.e725aef8c892cb21f262.jpeg",
     "static/media/team-2.jpg": "/camarco-dashboard/static/media/team-2.e725aef8c892cb21f262.jpg",
-    "static/media/logo-spotify.svg": "/camarco-dashboard/static/media/logo-spotify.329bc76096f5baa1eedd2182f158c5dd.svg",
-    "static/media/logo-apple.svg": "/camarco-dashboard/static/media/logo-apple.2c9fa987f354f5eb0f32fc5a7ef68cce.svg",
+    "static/media/logo-spotify.svg": "/camarco-dashboard/static/media/logo-spotify.94e384ccdc913765a5cb7baf8c2bbf19.svg",
+    "static/media/logo-apple.svg": "/camarco-dashboard/static/media/logo-apple.ca32a70e3573f229be57a4ce05faef2b.svg",
     "static/media/logo-invision.svg": "/camarco-dashboard/static/media/logo-invision.9914cf42b44071b5326f6ad315a83bba.svg",
     "static/media/logo-shopify.svg": "/camarco-dashboard/static/media/logo-shopify.98e3f7cf77d4661ce67d796d1158e923.svg",
     "static/media/logo-jira.svg": "/camarco-dashboard/static/media/logo-jira.a0d2348178d8f7a18e4b5406b3cdccf9.svg",
@@ -34,10 +34,10 @@
     "index.html": "/camarco-dashboard/index.html",
     "static/media/logos-facebook.svg": "/camarco-dashboard/static/media/logos-facebook.636d99abf08b3f56f5fa13748601c668.svg",
     "main.f63d517e.css.map": "/camarco-dashboard/static/css/main.f63d517e.css.map",
-    "main.bd5287ec.js.map": "/camarco-dashboard/static/js/main.bd5287ec.js.map"
+    "main.d780f160.js.map": "/camarco-dashboard/static/js/main.d780f160.js.map"
   },
   "entrypoints": [
     "static/css/main.f63d517e.css",
-    "static/js/main.bd5287ec.js"
+    "static/js/main.d780f160.js"
   ]
 }
