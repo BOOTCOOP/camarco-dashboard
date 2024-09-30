@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/camarco-dashboard/static/css/main.f63d517e.css",
-    "main.js": "/camarco-dashboard/static/js/main.d839b63d.js",
+    "main.css": "/camarco-dashboard/static/css/main.d614708d.css",
+    "main.js": "/camarco-dashboard/static/js/main.edd9b8c6.js",
     "static/media/home-decor-3.jpeg": "/camarco-dashboard/static/media/home-decor-3.74d13fcbd3c631fc7908.jpeg",
     "static/media/home-decor-2.jpeg": "/camarco-dashboard/static/media/home-decor-2.b4e5397c9846645ba275.jpeg",
     "static/media/home-decor-1.jpeg": "/camarco-dashboard/static/media/home-decor-1.05e218fd495ccc65c99d.jpeg",
@@ -33,11 +33,11 @@
     "static/media/logo-atlassian.svg": "/camarco-dashboard/static/media/logo-atlassian.7db5f0ddbe2cfc1d27cb6b81dc560b8f.svg",
     "index.html": "/camarco-dashboard/index.html",
     "static/media/logos-facebook.svg": "/camarco-dashboard/static/media/logos-facebook.636d99abf08b3f56f5fa13748601c668.svg",
-    "main.f63d517e.css.map": "/camarco-dashboard/static/css/main.f63d517e.css.map",
-    "main.d839b63d.js.map": "/camarco-dashboard/static/js/main.d839b63d.js.map"
+    "main.d614708d.css.map": "/camarco-dashboard/static/css/main.d614708d.css.map",
+    "main.edd9b8c6.js.map": "/camarco-dashboard/static/js/main.edd9b8c6.js.map"
   },
   "entrypoints": [
-    "static/css/main.f63d517e.css",
-    "static/js/main.d839b63d.js"
+    "static/css/main.d614708d.css",
+    "static/js/main.edd9b8c6.js"
   ]
 }
