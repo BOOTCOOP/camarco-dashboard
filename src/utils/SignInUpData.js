@@ -1,39 +1,39 @@
-import { Link } from "react-router-dom";
-import { Iconify } from "utils/Iconify";
+import { Link } from 'react-router-dom'
+import { Iconify } from 'utils/Iconify'
 export const footerMenu = [
-  { key: "1", label: "Company" },
-  { key: "2", label: "About Us" },
-  { key: "3", label: "Teams" },
-  { key: "4", label: "Products" },
-  { key: "5", label: "Blogs" },
-  { key: "6", label: "Pricing" },
-];
+  { key: '1', label: 'Company' },
+  { key: '2', label: 'About Us' },
+  { key: '3', label: 'Teams' },
+  { key: '4', label: 'Products' },
+  { key: '5', label: 'Blogs' },
+  { key: '6', label: 'Pricing' },
+]
 export const socialMenu = [
   {
-    key: "1",
+    key: '1',
     icon: <Iconify icon="eva:globe-fill" width="18px" height="18px" />,
   },
   {
-    key: "2",
+    key: '2',
     icon: <Iconify icon="eva:twitter-fill" width="18px" height="18px" />,
   },
   {
-    key: "3",
+    key: '3',
     icon: (
       <Iconify icon="akar-icons:instagram-fill" width="18px" height="18px" />
     ),
   },
   {
-    key: "4",
+    key: '4',
     icon: (
       <Iconify icon="akar-icons:pinterest-fill" width="18px" height="18px" />
     ),
   },
   {
-    key: "5",
+    key: '5',
     icon: <Iconify icon="akar-icons:github-fill" width="18px" height="18px" />,
   },
-];
+]
 export const signInSvg = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +48,7 @@ export const signInSvg = (
       d="M12.25,14H1.75A1.752,1.752,0,0,1,0,12.25V3.5A1.752,1.752,0,0,1,1.75,1.75h.876V.875a.875.875,0,0,1,1.75,0V1.75h5.25V.875a.875.875,0,0,1,1.75,0V1.75h.875A1.752,1.752,0,0,1,14,3.5v8.75A1.752,1.752,0,0,1,12.25,14ZM3.5,4.375a.875.875,0,0,0,0,1.75h7a.875.875,0,0,0,0-1.75Z"
     />
   </svg>
-);
+)
 export const signUpSvg = (
   <svg
     data-v-4ebdc598=""
@@ -69,7 +69,7 @@ export const signUpSvg = (
       className="fill-muted"
     ></path>
   </svg>
-);
+)
 export const profileSVg = (
   <svg
     data-v-4ebdc598=""
@@ -90,21 +90,21 @@ export const profileSVg = (
       className="fill-muted"
     ></path>
   </svg>
-);
+)
 const getLabel = (label, path, icon) => {
   return (
-    <span style={{ color: "#8c8c8c" }}>
+    <span style={{ color: '#8c8c8c' }}>
       <span>{icon}</span>
       <Link to={path}>{label}</Link>
     </span>
-  );
-};
+  )
+}
 export const items = [
   {
-    key: "1",
+    key: '1',
     label: getLabel(
-      "Dashboard",
-      "/dashboard",
+      'Dashboard',
+      '/dashboard',
       <svg
         data-v-4ebdc598=""
         width="20"
@@ -137,16 +137,16 @@ export const items = [
     ),
   },
   {
-    key: "2",
-    label: getLabel("Profile", "/profile", profileSVg),
+    key: '2',
+    label: getLabel('Profile', '/profile', profileSVg),
   },
   {
-    key: "3",
-    label: getLabel("Sign Up", "/sign-up", signUpSvg),
+    key: '3',
+    label: getLabel('Sign Up', '/sign-up', signUpSvg),
   },
   {
-    key: "4",
-    label: getLabel("Sign In", "/sign-in", signInSvg),
-    path: "/sign-in",
+    key: '4',
+    label: getLabel('Sign In', '/sign-in', signInSvg),
+    path: '/sign-in',
   },
-];
+]

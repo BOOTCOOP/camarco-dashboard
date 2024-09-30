@@ -1,39 +1,113 @@
-import React, { useState } from "react";
-import { Layout, Button, Typography, Form, Input, Col, Row } from "antd";
-import { Link, useNavigate } from "react-router-dom"; // Importa useNavigate
-import { Header, Footer } from "components/Layout";
-import signinbg from "../assets/images/img-signin.png";
+import { Button, Col, Form, Input, Layout, Row, Typography } from 'antd'
+import { Footer } from 'components/Layout'
+import JSEncrypt from 'jsencrypt'
+import forge from 'node-forge'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import signinbg from '../assets/images/img-signin.png'
 
-
-const { Content } = Layout;
-const { Title } = Typography;
-
+const { Content } = Layout
+const { Title } = Typography
 
 const SignIn = ({ setAuthenticated }) => {
-  const navigate = useNavigate(); // Obtiene la función de redirección
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const navigate = useNavigate()
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
 
-  const handleSignIn = () => {
-    if (username === process.env.REACT_APP_USERNAME && password === process.env.REACT_APP_PASSWORD) {
-      // Guardar el token de autenticación en localStorage
-      localStorage.setItem("token", process.env.REACT_APP_TOKEN);
-      console.log("se guardo en localstorage");
-      // Actualizar el estado de autenticación en App
-      setAuthenticated(true);
-      // Redirigir al dashboard utilizando la función de redirección
-      navigate("/dashboard");
-    } else {
-      setError("Credenciales incorrectas");
+  // Función para cargar la clave pública desde el archivo .crt
+  const loadPublicKey = async () => {
+    try {
+      const response = await fetch('/public.crt')
+      if (!response.ok) {
+        throw new Error(
+          'Error al cargar la clave pública: ' + response.statusText
+        )
+      }
+      const keyText = await response.text()
+      console.log('Clave pública cargada:', keyText) // Debug
+      // Convertir directamente desde PEM a PublicKey
+      const publicKey = forge.pki.publicKeyFromPem(keyText)
+      return publicKey
+    } catch (error) {
+      console.error('Error al cargar la clave pública:', error)
+      throw new Error('Error al cargar la clave pública')
     }
-  };
+  }
 
+  // Función para convertir a base64 en el navegador
+  const toBase64 = (str) => {
+    const encoder = new TextEncoder()
+    const data = encoder.encode(str)
+    let binary = ''
+    const len = data.byteLength
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(data[i])
+    }
+    return window.btoa(binary)
+  }
+
+  const handleSignIn = async () => {
+    try {
+      console.log('Iniciando sesión...') // Debug
+      const publicKey = `-----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxlfy+juJwTDtw8XolfSK
+    QB+JaKTgZMl+MjWo+m9n8Kt64ygqtfGvDda1UvT3t9e2ZpOvlsmfSIN0SUMhsq+T
+    /O8+Xyr87/sUU7tYocQ6adGh+zO58EecuSUtgutDdwh9/WkVqHhdCjeZXN5310/s
+    afaxJJzBemMjvmc/1yiMtBSVrCl71CloR6J1lnz+QZK+zqaNlKIQdQay9PoQlGEL
+    RrGgqo8fHdK3OQVUd6Ifzh5G1Mmnv67esCAKyeW8yeb6lQ7dtsJQJEC8M9yn4n1D
+    bz0+OwWWTzqHBo8b5JYi6xXnb/0WsaRX/ooWk5BEykmkkBhSmDYx0ZtLZcA2/Pj2
+    jwIDAQAB
+    -----END PUBLIC KEY-----`
+
+      // Crear una instancia de JSEncrypt
+      const encrypt = new JSEncrypt()
+      encrypt.setPublicKey(publicKey)
+
+      // Concatenar username y password
+      const credentials = `${username}:${password}`
+      console.log('Credenciales concatenadas:', credentials) // Debug
+
+      // Cifrar las credenciales con la clave pública
+      const encryptedCredentials = encrypt.encrypt(credentials)
+      console.log('Credenciales cifradas:', encryptedCredentials) // Debug
+
+      // Convertir a base64 para enviar en el header
+      const encryptedBase64 = `Basic ${encryptedCredentials}`
+      console.log('Credenciales cifradas en base64:', encryptedBase64) // Debug
+
+      // Enviar la solicitud GET al backend
+      const response = await fetch(
+        `https://api.abm.camarco.org.ar/api/authentication/login`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: encryptedBase64,
+            'Content-Type': 'text/plain',
+          },
+        }
+      )
+
+      if (response.ok) {
+        const data = await response.json()
+        console.log('Respuesta del servidor:', data) // Debug
+        // Guardar el token recibido en localStorage
+        localStorage.setItem('token', encryptedBase64)
+        setAuthenticated(true)
+        navigate('/tables')
+      } else {
+        console.log('Respuesta del servidor no OK:', await response.text()) // Debug
+        setError('Credenciales incorrectas')
+      }
+    } catch (err) {
+      console.error('Error en el proceso de inicio de sesión:', err)
+      setError('Ocurrió un error durante el inicio de sesión')
+    }
+  }
 
   return (
     <>
       <div className="layout-default layout-signin">
-      {/* <Header btn="primary" authenticated={false} /> */}
         <Content className="signin">
           <Row gutter={[24, 0]} justify="space-evenly">
             <Col
@@ -57,7 +131,7 @@ const SignIn = ({ setAuthenticated }) => {
                   rules={[
                     {
                       required: true,
-                      message: "Please input your email!",
+                      message: 'Please input your email!',
                     },
                   ]}
                 >
@@ -75,7 +149,7 @@ const SignIn = ({ setAuthenticated }) => {
                   rules={[
                     {
                       required: true,
-                      message: "Please input your password!",
+                      message: 'Please input your password!',
                     },
                   ]}
                 >
@@ -87,29 +161,33 @@ const SignIn = ({ setAuthenticated }) => {
                   />
                 </Form.Item>
                 <div className="align-button">
-                  <Button type="primary" className="btn-camarco" danger htmlType="submit">
+                  <Button
+                    type="primary"
+                    className="btn-camarco"
+                    danger
+                    htmlType="submit"
+                  >
                     SIGN IN
                   </Button>
-                </div>  
+                </div>
                 {error && <p>{error}</p>}
               </Form>
             </Col>
             <Col
-                className="sign-img"
-                style={{ padding: 12 }}
-                xs={{ span: 24 }}
-                lg={{ span: 9 }}
-                md={{ span: 12 }}
-              >
-                <img src={signinbg} alt="" />
-              </Col>
+              className="sign-img"
+              style={{ padding: 12 }}
+              xs={{ span: 24 }}
+              lg={{ span: 9 }}
+              md={{ span: 12 }}
+            >
+              <img src={signinbg} alt="" />
+            </Col>
           </Row>
         </Content>
-        {/* Footer */}
-        <Footer className='footer-signin' />
+        <Footer className="footer-signin" />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default SignIn;
+export default SignIn

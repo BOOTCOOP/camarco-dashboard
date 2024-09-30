@@ -1,22 +1,28 @@
-import React, { useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import Signup from "pages/signUp";
-import SignIn from "pages/signIn";
-import { Main } from "components/Layout";
-import Home from "pages/Home";
-import Tables from "pages/Tables";
-import Billing from "pages/Billing";
-import Profile from "pages/Profile";
+import { Main } from 'components/Layout'
+import Billing from 'pages/Billing'
+import Home from 'pages/Home'
+import Profile from 'pages/Profile'
+import Tables from 'pages/Tables'
+import SignIn from 'pages/signIn'
+import Signup from 'pages/signUp'
+import { useState } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
 export default function App() {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false)
 
   return (
     <>
       <Routes>
         <Route path="/sign-up" element={<Signup />} />
-        <Route path="/sign-in" element={<SignIn setAuthenticated={setAuthenticated} />} />
-        <Route path="/" element={authenticated ? <Main /> : <Navigate to="/sign-in" />}>
+        <Route
+          path="/sign-in"
+          element={<SignIn setAuthenticated={setAuthenticated} />}
+        />
+        <Route
+          path="/"
+          element={authenticated ? <Main /> : <Navigate to="/sign-in" />}
+        >
           <Route path="dashboard" element={<Home />} />
           <Route path="tables" element={<Tables />} />
           <Route path="billing" element={<Billing />} />
@@ -25,5 +31,5 @@ export default function App() {
         </Route>
       </Routes>
     </>
-  );
+  )
 }

@@ -1,8 +1,7 @@
-import React from "react";
-import { Layout, Menu, Button } from "antd";
-import { items } from "utils/SignInUpData";
-import { Link } from "react-router-dom";
-const { Header } = Layout;
+import { Button, Layout, Menu } from 'antd'
+import { Link } from 'react-router-dom'
+import { items } from 'utils/SignInUpData'
+const { Header } = Layout
 
 const AntdHeader = ({ btn, authenticated }) => {
   return (
@@ -16,15 +15,15 @@ const AntdHeader = ({ btn, authenticated }) => {
       </div>
       <div className="header-col header-nav">
         <Menu
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={['1']}
           mode="horizontal"
           items={items}
           style={{
-            display: "flex",
-            width: "40%",
-            justifyContent: "space-between",
-            margin: "0 auto",
-            alignItems: "center",
+            display: 'flex',
+            width: '40%',
+            justifyContent: 'space-between',
+            margin: '0 auto',
+            alignItems: 'center',
           }}
         />
       </div>
@@ -32,7 +31,7 @@ const AntdHeader = ({ btn, authenticated }) => {
         <Button type={btn}>Download</Button>
       </div>
     </Header>
-  );
-};
+  )
+}
 
-export default AntdHeader;
+export default AntdHeader

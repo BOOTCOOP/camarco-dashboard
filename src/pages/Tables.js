@@ -1,139 +1,162 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col, Card, Radio, Table, Button, Modal, Form, Input, message } from "antd";
-import axios from "axios";
+import {
+  Button,
+  Card,
+  Col,
+  Form,
+  Input,
+  Modal,
+  Row,
+  Table,
+  message,
+} from 'antd'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 export default function Tables() {
-  const [userData, setUserData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [form] = Form.useForm();
+  const [userData, setUserData] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [visible, setVisible] = useState(false)
+  const [form] = Form.useForm()
   const [userPagination, setUserPagination] = useState({
     current: 1,
     pageSize: 10,
     total: 0,
     showSizeChanger: false,
-  });
+  })
 
   useEffect(() => {
     if (userPagination.total === 0) {
-      setUserPagination((prev) => ({ ...prev, total: 1440 })); // Establecer un total alto solo si el total es inicialmente 0
+      setUserPagination((prev) => ({ ...prev, total: 1440 })) // Establecer un total alto solo si el total es inicialmente 0
     }
-  }, []); // Solo se ejecuta una vez al montar el componente
-  
+  }, []) // Solo se ejecuta una vez al montar el componente
+
   useEffect(() => {
-    fetchData();
-  }, [userPagination.current]); 
+    fetchData()
+  }, [userPagination.current])
 
   const fetchData = async () => {
     try {
-      setLoading(true);
-      const token = localStorage.getItem("token");
+      setLoading(true)
+      const token = process.env.REACT_APP_TOKEN
+      const authorizationHeader = `Basic ${token}`
       const response = await axios.get(
         `https://api.abm.camarco.org.ar/api/authentication/user?page=${userPagination.current}&name=`,
         {
           headers: {
-            Authorization: `${token}`, 
+            Authorization: authorizationHeader,
           },
         }
-      );
-      const users = response.data?.data?.page?.users || [];      
-      setUserData(users);
-      setLoading(false);
-      setUserPagination((prev) => ({ ...prev, total: response.data?.data?.search_info?.items || 0 }));
+      )
+      const users = response.data?.data?.page?.users || []
+      setUserData(users)
+      setLoading(false)
+      setUserPagination((prev) => ({
+        ...prev,
+        total: response.data?.data?.search_info?.items || 0,
+      }))
     } catch (error) {
-      console.error("Error fetching user data:", error);
-      setLoading(false);
+      console.error('Error fetching user data:', error)
+      setLoading(false)
     }
-  };
+  }
 
   const handleEdit = (record) => {
-    form.setFieldsValue(record);
-    setVisible(true);
-  };
+    form.setFieldsValue(record)
+    setVisible(true)
+  }
 
   const handleDelete = (record) => {
     // Implementa lógica para borrar un usuario
-    message.success(`Usuario "${record.username}" borrado correctamente.`);
-  };
+    message.success(`Usuario "${record.username}" borrado correctamente.`)
+  }
 
   const handleOk = () => {
     form.validateFields().then((values) => {
       // Implementa lógica para editar un usuario con los valores de `values`
-      console.log("Valores editados:", values);
-      setVisible(false);
-      message.success(`Usuario editado correctamente.`);
-    });
-  };
+      console.log('Valores editados:', values)
+      setVisible(false)
+      message.success(`Usuario editado correctamente.`)
+    })
+  }
 
   const handleCancel = () => {
-    setVisible(false);
-  };
+    setVisible(false)
+  }
 
   const handleTableChange = (pagination, filters, sorter) => {
-    setUserPagination(pagination);
-  };
+    setUserPagination(pagination)
+  }
 
   const handleSearch = async (value) => {
     try {
-      const token = localStorage.getItem("token");
-      setLoading(true);
+      const token = process.env.REACT_APP_TOKEN
+      const authorizationHeader = `Basic ${token}`
+      setLoading(true)
       const response = await axios.get(
         `https://api.abm.camarco.org.ar/api/authentication/user?page=1&name=${value}`,
         {
           headers: {
-            Authorization: `${token}`, 
+            Authorization: authorizationHeader,
           },
         }
-      );
-      const users = response.data?.data?.page?.users || [];      
-      setUserData(users);
-      setUserPagination((prev) => ({ ...prev, current: 1, total: response.data?.data?.search_info?.items || 0 }));
-      setLoading(false);
+      )
+      const users = response.data?.data?.page?.users || []
+      setUserData(users)
+      setUserPagination((prev) => ({
+        ...prev,
+        current: 1,
+        total: response.data?.data?.search_info?.items || 0,
+      }))
+      setLoading(false)
     } catch (error) {
-      console.error("Error fetching user data:", error);
-      setLoading(false);
+      console.error('Error fetching user data:', error)
+      setLoading(false)
     }
-  };
+  }
 
   const columns = [
     {
-      title: "Cuenta",
-      dataIndex: "surname",
-      key: "surname",
+      title: 'Cuenta',
+      dataIndex: 'surname',
+      key: 'surname',
     },
     {
-      title: "Razón social",
-      dataIndex: "name",
-      key: "name",
+      title: 'Razón social',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
-      title: "Usuario",
-      dataIndex: "wrapper",
-      key: "wrapper",
+      title: 'Usuario',
+      dataIndex: 'wrapper',
+      key: 'wrapper',
     },
     {
-      title: "Cuit",
-      dataIndex: "cuil",
-      key: "cuil",
-      render: (cuil, record) => cuil || record?.data_extension?.cuil || "--", // Manejo de valor vacío o nulo
+      title: 'Cuit',
+      dataIndex: 'cuil',
+      key: 'cuil',
+      render: (cuil, record) => cuil || record?.data_extension?.cuil || '--', // Manejo de valor vacío o nulo
     },
     {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-      render: (email, record) => email || record?.data_extension?.email || "--", // Manejo de valor vacío o nulo
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+      render: (email, record) => email || record?.data_extension?.email || '--', // Manejo de valor vacío o nulo
     },
     {
-      title: "Acciones",
-      key: "actions",
+      title: 'Acciones',
+      key: 'actions',
       render: (text, record) => (
         <span>
-          <Button type="link" onClick={() => handleEdit(record)}>Editar</Button>
-          <Button type="link" onClick={() => handleDelete(record)}>Borrar</Button>
+          <Button type="link" onClick={() => handleEdit(record)}>
+            Editar
+          </Button>
+          <Button type="link" onClick={() => handleDelete(record)}>
+            Borrar
+          </Button>
         </span>
       ),
     },
-  ];
+  ]
 
   return (
     <>
@@ -152,7 +175,13 @@ export default function Tables() {
               // }
             >
               <div className="table-responsive">
-                <div style={{ textAlign: "center", maxWidth: "80%", margin: "0 auto" }}>
+                <div
+                  style={{
+                    textAlign: 'center',
+                    maxWidth: '80%',
+                    margin: '0 auto',
+                  }}
+                >
                   <Input.Search
                     placeholder="Buscar por nombre"
                     onSearch={handleSearch}
@@ -199,5 +228,5 @@ export default function Tables() {
         </Form>
       </Modal>
     </>
-  );
+  )
 }
